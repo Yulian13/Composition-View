@@ -40,7 +40,6 @@ namespace Composition_View.Forms
             CallInputKey();
         }
 
-        int PastDataRowIndex = -1;
         int NowId
         {
             get
@@ -49,10 +48,6 @@ namespace Composition_View.Forms
                     return -1;
 
                 int index = dataGridViewComposition.SelectedRows[idDataGridViewTextBoxColumn.Index].Index;
-                if (index == PastDataRowIndex)
-                    return -1;
-                else
-                    PastDataRowIndex = index;
 
                 int id = 0;
                 bool converted = Int32.TryParse(dataGridViewComposition[idDataGridViewTextBoxColumn.Index, index].Value.ToString(), out id);
@@ -64,11 +59,17 @@ namespace Composition_View.Forms
         }
 
         private void CallGridView_SelectionChanged(object sender = null, EventArgs e = null) => dataGridView_SelectionChanged(sender, e);
+        int PastDataRowIndex = -1;
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
         {
             int id = NowId;
             if (id < 0)
                 return;
+
+            if (id == PastDataRowIndex)
+                return;
+            else
+                PastDataRowIndex = id;
 
             try
             {
@@ -114,18 +115,16 @@ namespace Composition_View.Forms
 
             if (sender != null & e != null)
                 CallGridView_SelectionChanged();
-
-            for (int i = 0; i < dataGridViewComposition.Rows.Count; i++)
-            {
-                string origName = dataGridViewComposition[nameDataGridViewTextBoxColumn.Index, i].Value.ToString();
-                dataGridViewComposition[OrigNameDataGridViewTextBoxColumn.Index, i].Value = Librari.DeShifrovka(origName, Key);
-            }
         }
 
         private void resetKeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Key = null;
-            pictureBox1.Image = null;
+            Key = "";
+            pictureBox1.Image = pictureBox1.ErrorImage;
+            foreach (DataGridViewRow row in dataGridViewComposition.Rows)
+            {
+                row.Cells[OrigNameDataGridViewTextBoxColumn.Index].Value = "";
+            }
             GC.Collect();
         }
         #endregion
@@ -308,7 +307,37 @@ namespace Composition_View.Forms
             composition = null;
         }
 
+
         #endregion
 
+        #region Deleting
+        private async void buttonDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you really want to delete it?", "Deleting",
+            MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2,
+            MessageBoxOptions.DefaultDesktopOnly);
+
+
+            if (result == DialogResult.No || dataGridViewComposition.SelectedRows.Count < 1)
+                return;
+
+            int id = NowId;
+            if (id < 0) return;
+
+            Composition composition = db.Compositions.Find(id);
+            db.Photos.RemoveRange(composition.Photos);
+            db.Compositions.Remove(composition);
+
+            buttonDelete.Enabled = false;
+
+            await db.SaveChangesAsync();
+
+            buttonDelete.Enabled = true;
+
+            CallGridView_SelectionChanged();
+            MessageBox.Show("Composition have been Deleted");
+
+        }
+        #endregion
     }
 }

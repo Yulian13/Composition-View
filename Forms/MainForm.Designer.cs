@@ -202,6 +202,7 @@ namespace Composition_View.Forms
             this.buttonDelete.TabIndex = 16;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // buttonAdd
             // 
@@ -275,7 +276,7 @@ namespace Composition_View.Forms
             this.Controls.Add(this.dataGridViewComposition);
             this.MinimumSize = new System.Drawing.Size(650, 300);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "View Compositions";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComposition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.compositionBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
