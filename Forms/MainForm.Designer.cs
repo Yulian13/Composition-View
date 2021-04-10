@@ -47,7 +47,6 @@ namespace Composition_View.Forms
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonGetRandom = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.backgroundWorkerAdding = new System.ComponentModel.BackgroundWorker();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -75,11 +74,11 @@ namespace Composition_View.Forms
             this.nameDataGridViewTextBoxColumn,
             this.numberPhotosDataGridViewTextBoxColumn});
             this.dataGridViewComposition.DataSource = this.compositionBindingSource;
-            this.dataGridViewComposition.Location = new System.Drawing.Point(369, 156);
+            this.dataGridViewComposition.Location = new System.Drawing.Point(369, 121);
             this.dataGridViewComposition.Name = "dataGridViewComposition";
             this.dataGridViewComposition.ReadOnly = true;
             this.dataGridViewComposition.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewComposition.Size = new System.Drawing.Size(400, 405);
+            this.dataGridViewComposition.Size = new System.Drawing.Size(418, 379);
             this.dataGridViewComposition.TabIndex = 10;
             this.dataGridViewComposition.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
             // 
@@ -125,7 +124,7 @@ namespace Composition_View.Forms
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.Location = new System.Drawing.Point(13, 67);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(350, 494);
+            this.pictureBox1.Size = new System.Drawing.Size(350, 433);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 11;
             this.pictureBox1.TabStop = false;
@@ -136,7 +135,7 @@ namespace Composition_View.Forms
             this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(781, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(799, 25);
             this.toolStrip1.TabIndex = 12;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -176,7 +175,7 @@ namespace Composition_View.Forms
             // 
             // buttonOpen
             // 
-            this.buttonOpen.Location = new System.Drawing.Point(369, 127);
+            this.buttonOpen.Location = new System.Drawing.Point(369, 92);
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(125, 23);
             this.buttonOpen.TabIndex = 14;
@@ -186,7 +185,7 @@ namespace Composition_View.Forms
             // checkBoxDecryption
             // 
             this.checkBoxDecryption.AutoSize = true;
-            this.checkBoxDecryption.Location = new System.Drawing.Point(500, 131);
+            this.checkBoxDecryption.Location = new System.Drawing.Point(500, 96);
             this.checkBoxDecryption.Name = "checkBoxDecryption";
             this.checkBoxDecryption.Size = new System.Drawing.Size(75, 17);
             this.checkBoxDecryption.TabIndex = 15;
@@ -196,7 +195,7 @@ namespace Composition_View.Forms
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(369, 98);
+            this.buttonDelete.Location = new System.Drawing.Point(500, 67);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(125, 23);
             this.buttonDelete.TabIndex = 16;
@@ -216,22 +215,13 @@ namespace Composition_View.Forms
             // 
             // buttonGetRandom
             // 
-            this.buttonGetRandom.Location = new System.Drawing.Point(500, 98);
+            this.buttonGetRandom.Location = new System.Drawing.Point(631, 67);
             this.buttonGetRandom.Name = "buttonGetRandom";
             this.buttonGetRandom.Size = new System.Drawing.Size(125, 23);
             this.buttonGetRandom.TabIndex = 18;
             this.buttonGetRandom.Text = "Get random";
             this.buttonGetRandom.UseVisualStyleBackColor = true;
             this.buttonGetRandom.Click += new System.EventHandler(this.buttonGetRandom_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(500, 67);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(125, 23);
-            this.button4.TabIndex = 19;
-            this.button4.Text = "Add from Link";
-            this.button4.UseVisualStyleBackColor = true;
             // 
             // backgroundWorkerAdding
             // 
@@ -244,15 +234,15 @@ namespace Composition_View.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(369, 38);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(346, 23);
+            this.progressBar1.Size = new System.Drawing.Size(348, 23);
             this.progressBar1.TabIndex = 20;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(718, 38);
+            this.buttonCancel.Location = new System.Drawing.Point(723, 38);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(51, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(64, 23);
             this.buttonCancel.TabIndex = 21;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -261,10 +251,9 @@ namespace Composition_View.Forms
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(781, 573);
+            this.ClientSize = new System.Drawing.Size(799, 512);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.buttonGetRandom);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonDelete);
@@ -274,7 +263,7 @@ namespace Composition_View.Forms
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.dataGridViewComposition);
-            this.MinimumSize = new System.Drawing.Size(650, 300);
+            this.MinimumSize = new System.Drawing.Size(785, 300);
             this.Name = "MainForm";
             this.Text = "View Compositions";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewComposition)).EndInit();
@@ -301,7 +290,6 @@ namespace Composition_View.Forms
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonGetRandom;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrigNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;

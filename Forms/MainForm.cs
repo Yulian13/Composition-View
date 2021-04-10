@@ -63,13 +63,10 @@ namespace Composition_View.Forms
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
         {
             int id = NowId;
-            if (id < 0)
+            if (id < 0 || (id == PastDataRowIndex && RightKey))
                 return;
 
-            if (id == PastDataRowIndex)
-                return;
-            else
-                PastDataRowIndex = id;
+            PastDataRowIndex = id;
 
             try
             {
@@ -79,6 +76,7 @@ namespace Composition_View.Forms
                 NewImage image = new NewImage(db.Photos.Find(composition.IdFirstPhoto));
                 image.DeShifrovkaImage(Key);
                 pictureBox1.Image = image.image;
+                RightKey = true;
             }
             catch (System.Security.Cryptography.CryptographicException)
             {
@@ -88,6 +86,7 @@ namespace Composition_View.Forms
             {
                 c(ex.Message);
             }
+
 
             void c(string Message)
             {
@@ -99,7 +98,19 @@ namespace Composition_View.Forms
 
         #region Buttons of options 
 
-        bool RightKey { get; set; }
+        bool _rightKey = false;
+        bool RightKey
+        {
+            get => _rightKey;
+            set
+            {
+                _rightKey = value;
+                buttonOpen.Enabled = value;
+                buttonDelete.Enabled = value;
+                buttonAdd.Enabled = value;
+            }
+
+        }
         private string Key;
 
         private void CallInputKey(object sender = null, EventArgs e = null) => changeKeyToolStripMenuItem_Click(sender, e);
@@ -110,16 +121,20 @@ namespace Composition_View.Forms
                 input.ShowDialog();
                 this.Key = new string(input.GetText.ToCharArray());
             }
+            if (string.IsNullOrEmpty(Key))
+                RightKey = false;
+
 
             buttonOpen.Enabled = !String.IsNullOrWhiteSpace(this.Key);
 
-            if (sender != null & e != null)
+            if (sender != null | e != null)
                 CallGridView_SelectionChanged();
         }
 
         private void resetKeyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Key = "";
+            RightKey = false;
             pictureBox1.Image = pictureBox1.ErrorImage;
             foreach (DataGridViewRow row in dataGridViewComposition.Rows)
             {
@@ -140,7 +155,8 @@ namespace Composition_View.Forms
 
                     row.Cells[OrigNameDataGridViewTextBoxColumn.Index].Value = Librari.DeShifrovka(
                             row.Cells[nameDataGridViewTextBoxColumn.Index].Value.ToString(),
-                            Key);
+                            Key
+                        );
                 }
                 catch
                 {
