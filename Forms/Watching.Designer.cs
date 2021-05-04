@@ -99,7 +99,6 @@ namespace Composition_View.Forms
             // 
             this.toolStripButtonOriginalDeshifrovka.AutoSize = false;
             this.toolStripButtonOriginalDeshifrovka.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonOriginalDeshifrovka.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButtonOriginalDeshifrovka.Image")));
             this.toolStripButtonOriginalDeshifrovka.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonOriginalDeshifrovka.Name = "toolStripButtonOriginalDeshifrovka";
             this.toolStripButtonOriginalDeshifrovka.Size = new System.Drawing.Size(73, 22);
@@ -110,7 +109,6 @@ namespace Composition_View.Forms
             // 
             this.ButtonZoomNormal.AutoSize = false;
             this.ButtonZoomNormal.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.ButtonZoomNormal.Image = ((System.Drawing.Image)(resources.GetObject("ButtonZoomNormal.Image")));
             this.ButtonZoomNormal.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ButtonZoomNormal.Name = "ButtonZoomNormal";
             this.ButtonZoomNormal.Size = new System.Drawing.Size(51, 22);

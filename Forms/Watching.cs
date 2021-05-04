@@ -17,19 +17,19 @@ namespace Composition_View.Forms
         static Image[] originImage;
         static Image[] NewImages;
         static bool[] ReadyPhotos;
-        bool close = false;
+        bool _isClose = false;
 
         bool originDeshifrovka = true;
-        bool NormalZoom = true;
+        bool normalZoom = true;
         string Key;
         int numberPhoto;
-        public int NumberPhoto
+        private int _numberPhoto
         {
             get => numberPhoto;
             set
             {
                 numberPhoto = value;
-                LabelView.Text = $"Page: {NumberPhoto + 1}/{ReadyPhotos.Length}";
+                LabelView.Text = $"Page: {_numberPhoto + 1}/{ReadyPhotos.Length}";
                 ProgressBarView.Value = numberPhoto + 1;
                 pictureBox1_SizeChanged(null, null);
             }
@@ -52,7 +52,7 @@ namespace Composition_View.Forms
 
             NewImages[0] = startPhoto;
 
-            NumberPhoto = 0;
+            _numberPhoto = 0;
         }
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
@@ -61,7 +61,7 @@ namespace Composition_View.Forms
             int i = 0;
             foreach (Photo photo in (e.Argument as Composition).Photos)
             {
-                if (close) return; // Crutch
+                if (_isClose) return; // Crutch
                 try
                 {
                     NewImages[i] = new NewImage(photo).DeShifrovkaImage(Key);
@@ -79,7 +79,7 @@ namespace Composition_View.Forms
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            if (close) return; // Crutch
+            if (_isClose) return; // Crutch
 
             LabelProgress.Text = $"{e.ProgressPercentage}/{NewImages.Length}";
             ProgressBarProgress.Value++;
@@ -87,7 +87,7 @@ namespace Composition_View.Forms
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (close) return; // Crutch
+            if (_isClose) return; // Crutch
 
             ProgressBarProgress.Visible = false;
             LabelProgress.Visible = false;
@@ -96,15 +96,15 @@ namespace Composition_View.Forms
         private void buttonForward_Click(object sender = null, EventArgs e = null)
         {
             panel1.VerticalScroll.Value = 0;
-            if (NumberPhoto < NewImages.Length - 1 && ReadyPhotos[NumberPhoto + 1] == true)
-                NumberPhoto++;
+            if (_numberPhoto < NewImages.Length - 1 && ReadyPhotos[_numberPhoto + 1] == true)
+                _numberPhoto++;
         }
 
         private void buttonBack_Click(object sender = null, EventArgs e = null)
         {
             panel1.VerticalScroll.Value = 0;
-            if (NumberPhoto > 0)
-                NumberPhoto--;
+            if (_numberPhoto > 0)
+                _numberPhoto--;
         }
 
         private void Watching_MouseClick(object sender, MouseEventArgs e)
@@ -127,7 +127,7 @@ namespace Composition_View.Forms
             Image image = (originDeshifrovka) ? NewImages[numberPhoto] :
                     originImage[numberPhoto];
             LabelView.Margin = new Padding((int)(toolStrip1.Width * 0.4), 3, 0, 2);
-            if (NormalZoom)
+            if (normalZoom)
             {
                 int Width = panel1.Width - 20;
                 int Height = (int)(((double)image.Height / image.Width) * Width);
@@ -146,21 +146,21 @@ namespace Composition_View.Forms
         {
             originDeshifrovka = !originDeshifrovka;
             toolStripButtonOriginalDeshifrovka.Text = (originDeshifrovka) ? "origin" : "Deshifrovka";
-            NumberPhoto = NumberPhoto;
+            _numberPhoto = _numberPhoto;
         }
 
         private void ButtonZoomNormal_Click(object sender, EventArgs e)
         {
-            NormalZoom = !NormalZoom;
-            pictureBox1.SizeMode = (NormalZoom) ? PictureBoxSizeMode.Normal : PictureBoxSizeMode.Zoom;
-            pictureBox1.Image = NewImages[NumberPhoto];
-            ButtonZoomNormal.Text = (NormalZoom) ? "Zoom" : "Normal";
+            normalZoom = !normalZoom;
+            pictureBox1.SizeMode = (normalZoom) ? PictureBoxSizeMode.Normal : PictureBoxSizeMode.Zoom;
+            pictureBox1.Image = NewImages[_numberPhoto];
+            ButtonZoomNormal.Text = (normalZoom) ? "Zoom" : "Normal";
             pictureBox1_SizeChanged(null, null);
         }
 
         private void Watching_FormClosing(object sender, FormClosingEventArgs e)
         {
-            close = true;
+            _isClose = true;
             for (int i = 0; i < NewImages.Length; i++)
             {
                 if (NewImages[i] != null)

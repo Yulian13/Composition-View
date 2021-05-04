@@ -1,5 +1,6 @@
 ﻿using Composition_View.SQL_Class;
 using Composition_View.Tools;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,15 +19,20 @@ namespace Composition_View.Forms
     public partial class MainForm : Form
     {
 
-        private const string Connect = @"Data Source=DESKTOP-HI8BT21\SQLEXPRESS;Database=Composition;Trusted_Connection=True;AttachDbFileName=D:\Anime\DataBase\Composition.mdf";
         static PhotoContext db;
         public MainForm()
         {
             InitializeComponent();
 
+            string connect = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build()
+                .GetConnectionString("DefultConnection");
+
             try
             {
-                db = new PhotoContext(Connect);
+                db = new PhotoContext(connect);
                 db.Compositions.Load();
             }
             catch (Exception ex)
@@ -355,5 +361,14 @@ namespace Composition_View.Forms
 
         }
         #endregion
+
+        private void buttonOpen_Click(object sender, EventArgs e)
+        {
+            int id = NowId;
+            if (id < 0) return;
+
+            Watching watching = new Watching(db.Compositions.Find(id), pictureBox1.Image, Key);
+            watching.Show();
+        }
     }
 }
